@@ -7,7 +7,7 @@ export const SITE = {
   // 站点副标题 / 一句话简介
   description: '写作者与读者。记录关于生活、书和慢下来的思考。',
   // 作者名
-  author: '你的名字',
+  author: 'sssstiger',
   // 网站地址，需与 astro.config.mjs 里的 site 保持一致
   url: 'https://344187698-byte.github.io',
 
