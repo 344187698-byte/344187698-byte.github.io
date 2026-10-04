@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const formatted = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(post.data.pubDate);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article>
+    <header class="post-header">
+      <div class="container container--narrow">
+        <p class="post-header__meta">{formatted}{post.data.tags.length > 0 ? ` · ${post.data.tags.join(' / ')}` : ''}</p>
+        <h1 class="post-header__title">{post.data.title}</h1>
+        <p class="post-header__desc">{post.data.description}</p>
+        <div class="post-divider"></div>
+      </div>
+    </header>
+
+    <div class="container container--narrow prose">
+      <Content />
+    </div>
+
+    <div class="container container--narrow post-footer">
+      <a class="btn" href={`${base}/blog`}>← 返回文章列表</a>
+    </div>
+  </article>
+</BaseLayout>

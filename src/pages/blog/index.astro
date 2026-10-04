@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title="文章">
+  <header class="page-header">
+    <div class="container container--narrow">
+      <h1 class="page-header__title">文章</h1>
+      <p class="page-header__lead">所有写过的东西，按时间从新到旧排列。</p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="post-grid">
+        {
+          posts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.pubDate}
+              href={`${base}/blog/${post.id}/`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

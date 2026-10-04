@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latest = posts.slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="container container--narrow">
+      <p class="hero__eyebrow">欢迎来到我的小站</p>
+      <h1 class="hero__title">{SITE.title}</h1>
+      <p class="hero__lead">{SITE.description}</p>
+      <div class="btn-row">
+        <a class="btn btn--solid" href={`${base}/blog`}>读文章</a>
+        <a class="btn" href={`${base}/about`}>关于我</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新文章 -->
+  {
+    latest.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">最新文章</h2>
+            <a class="section__more" href={`${base}/blog`}>
+              查看全部 →
+            </a>
+          </div>
+          <div class="post-grid">
+            {latest.map((post) => (
+              <PostCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.pubDate}
+                href={`${base}/blog/${post.id}/`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- 关于我 预览 -->
+  <section class="section section--soft">
+    <div class="container">
+      <div class="about-teaser">
+        <div class="about-teaser__photo"></div>
+        <div>
+          <h2 class="about-teaser__name">你好，我是{SITE.author}</h2>
+          <p>
+            这里放一段自我介绍：你是谁、在写什么、为什么写。两三句话即可，让人快速认识你。
+          </p>
+          <a class="btn" href={`${base}/about`}>了解更多</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅 CTA -->
+  <section class="cta">
+    <div class="container container--narrow">
+      <h2 class="cta__title">别错过新文章</h2>
+      <p class="cta__text">
+        可以在下方订阅，或通过 RSS 追更。有新文章时会第一时间收到。
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--solid" href={`mailto:${SITE.social.email}?subject=订阅`}>邮件订阅</a>
+        <a class="btn" href={`${base}/rss.xml`}>RSS 订阅</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

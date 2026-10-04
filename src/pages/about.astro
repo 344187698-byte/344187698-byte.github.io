@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="关于" description={`关于 ${SITE.author}`}>
+  <header class="page-header">
+    <div class="container container--narrow">
+      <h1 class="page-header__title">关于</h1>
+      <p class="page-header__lead">认识一下写下这些文字的人。</p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 20px;">
+    <div class="container container--narrow">
+      <div class="prose">
+        <p>
+          <!-- 把下面这段换成你自己的介绍 -->
+          你好，我是 <strong>{SITE.author}</strong>。这里是小站的自我介绍区域，可以写你是谁、
+          目前在哪里、平时在忙些什么。
+        </p>
+        <p>
+          我喜欢阅读、写作，以及把生活过得慢一点。这个博客用来记录读书笔记、日常随笔，
+          以及一些还没想明白、但想写下来的东西。
+        </p>
+        <h2>我在写什么</h2>
+        <p>
+          这里主要分享：
+        </p>
+        <ul>
+          <li>读书笔记与书单</li>
+          <li>关于生活方式的思考</li>
+          <li>偶尔的旅行与日常</li>
+        </ul>
+        <h2>联系我</h2>
+        <p>
+          欢迎通过
+          <a href={`mailto:${SITE.social.email}`}>邮件</a>
+          或
+          <a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram</a>
+          找到我。
+        </p>
+      </div>
+
+      <div class="post-footer" style="margin-top: 40px;">
+        <a class="btn" href={`${base}/blog`}>去看看文章 →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import { SITE } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__links">
+      <a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram</a>
+      <a href={`mailto:${SITE.social.email}`}>Email</a>
+      <a href={import.meta.env.BASE_URL + 'rss.xml'}>RSS</a>
+    </div>
+    <p class="site-footer__copy">© {year} {SITE.author} · 用 Astro 搭建 · 托管于 GitHub Pages</p>
+  </div>
+</footer>
