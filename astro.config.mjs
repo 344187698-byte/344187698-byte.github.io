@@ -15,6 +15,6 @@ import { defineConfig } from 'astro/config';
 //
 // 推荐用「情况 A」，仓库名写成 <用户名>.github.io，base 保持 '/'，最省事。
 export default defineConfig({
-  site: 'https://YOUR-USERNAME.github.io',
+  site: 'https://344187698-byte.github.io',
   base: '/',
 });

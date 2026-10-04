@@ -9,7 +9,7 @@ export const SITE = {
   // 作者名
   author: '你的名字',
   // 网站地址，需与 astro.config.mjs 里的 site 保持一致
-  url: 'https://YOUR-USERNAME.github.io',
+  url: 'https://344187698-byte.github.io',
 
   // 顶部导航
   nav: [
